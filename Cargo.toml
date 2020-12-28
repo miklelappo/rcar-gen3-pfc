@@ -1,0 +1,21 @@
+[package]
+name = "rcar-gen3-pfc"
+authors = ["Mikhail Lappo <miklelappo@gmail.com>"]
+version = "0.1.0"
+description = """
+PFC/GPIO driver for R-Car Gen3 SOC's in bare-metal Rust
+"""
+license = "MIT"
+repository = "https://github.com/miklelappo/rcar-gen3-pfc"
+documentation = "https://docs.rs/rcar-gen3-pfc/||VERSION||"
+readme = "README.md"
+keywords = ["RCar", "aarch64", "boot", "baremetal", "Renesas", "gpio", "pfc"]
+categories = ["no-std", "embedded"]
+edition = "2018"
+
+[dependencies]
+tock-registers = "0.6.0"
+
+# ensure the required features of the crate are active for the doc.rs build
+[package.metadata.docs.rs]
+targets = ["aarch64-unknown-none", "aarch64-unknown-linux-gnu"]
