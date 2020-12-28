@@ -14,6 +14,69 @@ pub struct RCarPortConfig {
     pub pfc_puen: [u32; 7],
 }
 
+pub struct RCarPinConfig {
+    pub gpio_posneg: [u32; 7],
+    pub gpio_iointsel: [u32; 7],
+    pub gpio_outdt: [u32; 8],
+    pub gpio_inoutsel: [u32; 8],
+}
+
+impl RCarPinConfig {
+    pub fn apply(&self) {
+        unsafe {
+            self.init_posneg();
+            self.init_iointsel();
+            self.init_outdt();
+            self.init_inoutsel();
+        }
+    }
+
+    unsafe fn init_posneg(&self) {
+        let gpio_regs = 0xE605_0000 as *const reg_def::GPIO_RegisterBlock;
+        (*gpio_regs).GPIO_POSNEG0.set(self.gpio_posneg[0]);
+        (*gpio_regs).GPIO_POSNEG1.set(self.gpio_posneg[1]);
+        (*gpio_regs).GPIO_POSNEG2.set(self.gpio_posneg[2]);
+        (*gpio_regs).GPIO_POSNEG3.set(self.gpio_posneg[3]);
+        (*gpio_regs).GPIO_POSNEG4.set(self.gpio_posneg[4]);
+        (*gpio_regs).GPIO_POSNEG5.set(self.gpio_posneg[5]);
+        (*gpio_regs).GPIO_POSNEG6.set(self.gpio_posneg[6]);
+    }
+
+    unsafe fn init_iointsel(&self) {
+        let gpio_regs = 0xE605_0000 as *const reg_def::GPIO_RegisterBlock;
+        (*gpio_regs).GPIO_IOINTSEL0.set(self.gpio_iointsel[0]);
+        (*gpio_regs).GPIO_IOINTSEL1.set(self.gpio_iointsel[1]);
+        (*gpio_regs).GPIO_IOINTSEL2.set(self.gpio_iointsel[2]);
+        (*gpio_regs).GPIO_IOINTSEL3.set(self.gpio_iointsel[3]);
+        (*gpio_regs).GPIO_IOINTSEL4.set(self.gpio_iointsel[4]);
+        (*gpio_regs).GPIO_IOINTSEL5.set(self.gpio_iointsel[5]);
+        (*gpio_regs).GPIO_IOINTSEL6.set(self.gpio_iointsel[6]);
+    }
+
+    unsafe fn init_outdt(&self) {
+        let gpio_regs = 0xE605_0000 as *const reg_def::GPIO_RegisterBlock;
+        (*gpio_regs).GPIO_OUTDT0.set(self.gpio_outdt[0]);
+        (*gpio_regs).GPIO_OUTDT1.set(self.gpio_outdt[1]);
+        (*gpio_regs).GPIO_OUTDT2.set(self.gpio_outdt[2]);
+        (*gpio_regs).GPIO_OUTDT3.set(self.gpio_outdt[3]);
+        (*gpio_regs).GPIO_OUTDT4.set(self.gpio_outdt[4]);
+        (*gpio_regs).GPIO_OUTDT5.set(self.gpio_outdt[5]);
+        (*gpio_regs).GPIO_OUTDT6.set(self.gpio_outdt[6]);
+        (*gpio_regs).GPIO_OUTDT7.set(self.gpio_outdt[7]);
+    }
+
+    unsafe fn init_inoutsel(&self) {
+        let gpio_regs = 0xE605_0000 as *const reg_def::GPIO_RegisterBlock;
+        (*gpio_regs).GPIO_INOUTSEL0.set(self.gpio_inoutsel[0]);
+        (*gpio_regs).GPIO_INOUTSEL1.set(self.gpio_inoutsel[1]);
+        (*gpio_regs).GPIO_INOUTSEL2.set(self.gpio_inoutsel[2]);
+        (*gpio_regs).GPIO_INOUTSEL3.set(self.gpio_inoutsel[3]);
+        (*gpio_regs).GPIO_INOUTSEL4.set(self.gpio_inoutsel[4]);
+        (*gpio_regs).GPIO_INOUTSEL5.set(self.gpio_inoutsel[5]);
+        (*gpio_regs).GPIO_INOUTSEL6.set(self.gpio_inoutsel[6]);
+        (*gpio_regs).GPIO_INOUTSEL7.set(self.gpio_inoutsel[7]);
+    }
+}
 
 impl RCarPortConfig {
     pub fn apply(&self) {
@@ -29,10 +92,10 @@ impl RCarPortConfig {
     }
 
     unsafe fn init_modesel(&self) {
-        let modesel_regs = 0xE606_0500 as *const reg_def::Pfc_Mode_Sel_RegisterBlock;
-        (*modesel_regs).PFC_MODE_SEL0.set(self.pfc_mod_sel[0]);
-        (*modesel_regs).PFC_MODE_SEL1.set(self.pfc_mod_sel[1]);
-        (*modesel_regs).PFC_MODE_SEL2.set(self.pfc_mod_sel[2]);
+        let modesel_regs = 0xE606_0500 as *const reg_def::Pfc_ModeSel_RegisterBlock;
+        (*modesel_regs).PFC_MODESEL0.set(self.pfc_mod_sel[0]);
+        (*modesel_regs).PFC_MODESEL1.set(self.pfc_mod_sel[1]);
+        (*modesel_regs).PFC_MODESEL2.set(self.pfc_mod_sel[2]);
     }
 
     unsafe fn init_ipsr(&self) {
@@ -76,7 +139,7 @@ impl RCarPortConfig {
     }
 
     unsafe fn init_drvctrl(&self) {
-        let drvctrl_regs = 0xE606_0300 as *const reg_def::Pfc_Drv_Ctrl_RegisterBlock;
+        let drvctrl_regs = 0xE606_0300 as *const reg_def::Pfc_DrvCtrl_RegisterBlock;
         (*drvctrl_regs).PFC_DRVCTRL0.set(self.pfc_drvctrl[0]);
         (*drvctrl_regs).PFC_DRVCTRL1.set(self.pfc_drvctrl[1]);
         (*drvctrl_regs).PFC_DRVCTRL2.set(self.pfc_drvctrl[2]);
@@ -116,7 +179,7 @@ impl RCarPortConfig {
     }
 
     unsafe fn init_puen(&self) {
-        let puen_regs = 0xE606_0400 as *const reg_def::Pfc_Puen_RegisterBlock;
+        let puen_regs = 0xE606_0400 as *const reg_def::Pfc_PuEn_RegisterBlock;
         (*puen_regs).PFC_PUEN0.set(self.pfc_puen[0]);
         (*puen_regs).PFC_PUEN1.set(self.pfc_puen[1]);
         (*puen_regs).PFC_PUEN2.set(self.pfc_puen[2]);

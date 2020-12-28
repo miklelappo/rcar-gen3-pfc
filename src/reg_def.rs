@@ -1,12 +1,12 @@
 use crate::pfc_reg::PfcReadWrite;
-use tock_registers::register_structs;
+use tock_registers::{register_structs, registers::ReadWrite};
 
 register_structs! {
     #[allow(non_snake_case)]
-    pub Pfc_Mode_Sel_RegisterBlock {
-        (0x000 => pub PFC_MODE_SEL0: PfcReadWrite<u32>),
-        (0x004 => pub PFC_MODE_SEL1: PfcReadWrite<u32>),
-        (0x008 => pub PFC_MODE_SEL2: PfcReadWrite<u32>),
+    pub Pfc_ModeSel_RegisterBlock {
+        (0x000 => pub PFC_MODESEL0: PfcReadWrite<u32>),
+        (0x004 => pub PFC_MODESEL1: PfcReadWrite<u32>),
+        (0x008 => pub PFC_MODESEL2: PfcReadWrite<u32>),
         (0x00C => @END),
     }
 }
@@ -62,7 +62,7 @@ register_structs! {
 
 register_structs! {
     #[allow(non_snake_case)]
-    pub Pfc_Drv_Ctrl_RegisterBlock {
+    pub Pfc_DrvCtrl_RegisterBlock {
         (0x000 => pub PFC_DRVCTRL0: PfcReadWrite<u32>),
         (0x004 => pub PFC_DRVCTRL1: PfcReadWrite<u32>),
         (0x008 => pub PFC_DRVCTRL2: PfcReadWrite<u32>),
@@ -108,7 +108,7 @@ register_structs! {
 
 register_structs! {
     #[allow(non_snake_case)]
-    pub Pfc_Puen_RegisterBlock {
+    pub Pfc_PuEn_RegisterBlock {
         (0x000 => pub PFC_PUEN0: PfcReadWrite<u32>),
         (0x004 => pub PFC_PUEN1: PfcReadWrite<u32>),
         (0x008 => pub PFC_PUEN2: PfcReadWrite<u32>),
@@ -117,5 +117,56 @@ register_structs! {
         (0x014 => pub PFC_PUEN5: PfcReadWrite<u32>),
         (0x018 => pub PFC_PUEN6: PfcReadWrite<u32>),
         (0x01C => @END),
+    }
+}
+
+register_structs! {
+    #[allow(non_snake_case)]
+    pub GPIO_RegisterBlock {
+        (0x0000 => pub GPIO_IOINTSEL0: ReadWrite<u32>),
+        (0x0004 => pub GPIO_INOUTSEL0: ReadWrite<u32>),
+        (0x0008 => pub GPIO_OUTDT0: ReadWrite<u32>),
+        (0x0020 => pub GPIO_POSNEG0: ReadWrite<u32>),
+        (0x1000 => pub GPIO_IOINTSEL1: ReadWrite<u32>),
+        (0x1004 => pub GPIO_INOUTSEL1: ReadWrite<u32>),
+        (0x1008 => pub GPIO_OUTDT1: ReadWrite<u32>),
+        (0x1020 => pub GPIO_POSNEG1: ReadWrite<u32>),
+        (0x2000 => pub GPIO_IOINTSEL2: ReadWrite<u32>),
+        (0x2004 => pub GPIO_INOUTSEL2: ReadWrite<u32>),
+        (0x2008 => pub GPIO_OUTDT2: ReadWrite<u32>),
+        (0x2020 => pub GPIO_POSNEG2: ReadWrite<u32>),
+        (0x3000 => pub GPIO_IOINTSEL3: ReadWrite<u32>),
+        (0x3004 => pub GPIO_INOUTSEL3: ReadWrite<u32>),
+        (0x3008 => pub GPIO_OUTDT3: ReadWrite<u32>),
+        (0x3020 => pub GPIO_POSNEG3: ReadWrite<u32>),
+        (0x4000 => pub GPIO_IOINTSEL4: ReadWrite<u32>),
+        (0x4004 => pub GPIO_INOUTSEL4: ReadWrite<u32>),
+        (0x4008 => pub GPIO_OUTDT4: ReadWrite<u32>),
+        (0x4020 => pub GPIO_POSNEG4: ReadWrite<u32>),
+        (0x5000 => pub GPIO_IOINTSEL5: ReadWrite<u32>),
+        (0x5004 => pub GPIO_INOUTSEL5: ReadWrite<u32>),
+        (0x5008 => pub GPIO_OUTDT5: ReadWrite<u32>),
+        (0x5020 => pub GPIO_POSNEG5: ReadWrite<u32>),
+        (0x5400 => pub GPIO_IOINTSEL6: ReadWrite<u32>),
+        (0x5404 => pub GPIO_INOUTSEL6: ReadWrite<u32>),
+        (0x5408 => pub GPIO_OUTDT6: ReadWrite<u32>),
+        (0x5420 => pub GPIO_POSNEG6: ReadWrite<u32>),
+        (0x5804 => pub GPIO_INOUTSEL7: ReadWrite<u32>),
+        (0x5808 => pub GPIO_OUTDT7: ReadWrite<u32>),
+        (0x580C => @END),
+    }
+}
+
+register_structs! {
+    #[allow(non_snake_case)]
+    pub GPIO_Outdt_RegisterBlock {
+        (0x020 => @END),
+    }
+}
+
+register_structs! {
+    #[allow(non_snake_case)]
+    pub GPIO_InOutSel_RegisterBlock {
+        (0x020 => @END),
     }
 }

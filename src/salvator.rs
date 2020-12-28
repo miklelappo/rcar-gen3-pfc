@@ -1,6 +1,6 @@
-use crate::RCarPortConfig;
+use crate::{RCarPinConfig, RCarPortConfig};
 
-pub fn get_default_pfc() -> RCarPortConfig {
+static PORT_CFG: RCarPortConfig =
     RCarPortConfig {
         pfc_mod_sel: [
             0x0000_0000,
@@ -86,5 +86,53 @@ pub fn get_default_pfc() -> RCarPortConfig {
             0x1F00_0805,
             0x0000_0006,
         ],
-    }
+    };
+static PIN_CFG: RCarPinConfig =
+    RCarPinConfig {
+        gpio_posneg: [
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+        ],
+        gpio_iointsel: [
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0000,
+        ],
+        gpio_outdt: [
+            0x0000_0000,
+            0x0000_0000,
+            0x0000_0400,
+            0x0000_C000,
+            0x0000_0000,
+            0x0000_0006,
+            0x0000_3880,
+            0x0000_0000,
+        ],
+        gpio_inoutsel: [
+            0x0000_0000,
+            0x0100_0A00,
+            0x0000_0400,
+            0x0000_C000,
+            0x0000_0000,
+            0x0000_020E,
+            0x0001_3880,
+            0x0000_0000,
+        ],
+    };
+
+pub fn get_default_pfc() -> &'static RCarPortConfig {
+    &PORT_CFG
+}
+
+pub fn get_default_pincfg() -> &'static RCarPinConfig {
+    &PIN_CFG
 }
